@@ -1,0 +1,2 @@
+C:\Users\mac pro w\Documents\Code\ModuleMirror\obj\Debug\ModuleMirror.csprojAssemblyReference.cache
+C:\Users\mac pro w\Documents\Code\ModuleMirror\obj\Debug\ModuleMirror.csproj.CoreCompileInputs.cache

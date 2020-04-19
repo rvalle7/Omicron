@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omicron", "Omicron\Omicron.csproj", "{21DD2AAD-6ED6-4D9C-A52E-BA3EC19412BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleMirror", "ModuleMirror\ModuleMirror.csproj", "{BBB3FD00-F0EC-4298-9C49-1107DE6DBE0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21DD2AAD-6ED6-4D9C-A52E-BA3EC19412BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DD2AAD-6ED6-4D9C-A52E-BA3EC19412BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DD2AAD-6ED6-4D9C-A52E-BA3EC19412BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DD2AAD-6ED6-4D9C-A52E-BA3EC19412BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB3FD00-F0EC-4298-9C49-1107DE6DBE0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB3FD00-F0EC-4298-9C49-1107DE6DBE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB3FD00-F0EC-4298-9C49-1107DE6DBE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB3FD00-F0EC-4298-9C49-1107DE6DBE0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {174EF7C5-CA80-4526-BB73-9CCC66EAE1BD}
+	EndGlobalSection
+EndGlobal
