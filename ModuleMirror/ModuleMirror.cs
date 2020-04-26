@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-// KSP 1.7.3 e Unity 2017.1.3p1
+// KSP 1.9.1 e Unity 2019.2.2f1
 
 namespace ObjectTools
 {
