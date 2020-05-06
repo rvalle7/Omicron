@@ -59,8 +59,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="0.6.0\Omicron.cs" />
+    <Compile Include="ModuleMirror.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Omicron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Credits.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

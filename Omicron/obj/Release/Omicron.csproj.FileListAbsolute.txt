@@ -6,3 +6,7 @@ C:\Users\mac pro w\Documents\Omicron\Code\Omicron\Output\Omicron.dll
 C:\Users\mac pro w\Documents\Omicron\Code\Omicron\obj\Release\Omicron.csprojAssemblyReference.cache
 C:\Users\mac pro w\Documents\Omicron\Code\Omicron\obj\Release\Omicron.csproj.CoreCompileInputs.cache
 C:\Users\mac pro w\Documents\Omicron\Code\Omicron\obj\Release\Omicron.dll
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\Output\Omicron.dll
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.csprojAssemblyReference.cache
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.csproj.CoreCompileInputs.cache
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.dll
