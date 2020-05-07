@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+//using System.Linq;
+//using System.Collections.Generic;
 using UnityEngine;
 using KSP.UI.Screens.Flight;
+using CommNet;
+using Contracts.Predicates;
+//using FinePrint.Utilities;
 
 // KSP 1.9.1 e Unity 2019.2.2f1
 
@@ -29,7 +32,6 @@ namespace Omicron
         private Transform Throttle_Dial_R;
         private Transform Throttle_L;
         private Transform Throttle_R;
-        private Vessel myVessel;
         private float Throttle;
 
         //Speed Dials
@@ -60,41 +62,61 @@ namespace Omicron
         private int altpointer;
         private int altpointerold;
 
+        //Signal Strength
+        private double commStatus;
+        private int signalStrength;
+        private Transform commOnOff;
+
+
+
         //NavBall
-        [KSPField]
+        [KSPField(isPersistant = true)]
         public string NavBallName = "navball_node";
 
         //SAS
-        [KSPField]
+        [KSPField(isPersistant = true)]
         public string SAS_Name = "SAS_glass";
 
         //RCS
-        [KSPField]
+        [KSPField(isPersistant = true)]
         public string RCS_Name = "RCS_glass";
-
+        
         //Throttle
-        [KSPField]
+        [KSPField(isPersistant = true)]
         public string Throttle_Dial_Left_Name = "dial_throttle_left";
+        [KSPField(isPersistant = true)]
         public string Throttle_Left_Name = "throttle_left";
+        [KSPField(isPersistant = true)]
         public string Throttle_Dial_Right_Name = "dial_throttle_right";
+        [KSPField(isPersistant = true)]
         public string Throttle_Right_Name = "throttle_right";
 
         //Speed Dials
-        [KSPField]
+        [KSPField(isPersistant = true)]
         public string Speed_Dial_10_Left_Name = "Dial_10_speed_left";
+        [KSPField(isPersistant = true)]
         public string Speed_Dial_100_Left_Name = "Dial_100_speed_left";
+        [KSPField(isPersistant = true)]
         public string Speed_Dial_1000_Left_Name = "Dial_1000_speed_left";
+        [KSPField(isPersistant = true)]
         public string Speed_Dial_10_Right_Name = "Dial_10_speed_right";
+        [KSPField(isPersistant = true)]
         public string Speed_Dial_100_Right_Name = "Dial_100_speed_right";
+        [KSPField(isPersistant = true)]
         public string Speed_Dial_1000_Right_Name = "Dial_1000_speed_right";
 
         //Altitude Dials
-        [KSPField]
+        [KSPField(isPersistant = true)]
         public string Alt_Dial_10_Left_Name = "Dial_10_altitude_left";
+        [KSPField(isPersistant = true)]
         public string Alt_Dial_100_Left_Name = "Dial_100_altitude_left";
+        [KSPField(isPersistant = true)]
         public string Alt_Dial_1000_Left_Name = "Dial_1000_altitude_left";
+        [KSPField(isPersistant = true)]
         public string Alt_Dial_10_Right_Name = "Dial_10_altitude_right";
+        [KSPField(isPersistant = true)]
         public string Alt_Dial_100_Right_Name = "Dial_100_altitude_right";
+        [KSPField(isPersistant = true)]
         public string Alt_Dial_1000_Right_Name = "Dial_1000_altitude_right";
 
         //Hide Altimeter and Speed units transformers besides m and m/s
@@ -121,7 +143,10 @@ namespace Omicron
                     Obj.name.Equals("speed_Bms_R", StringComparison.Ordinal) ||
 
                     Obj.name.Equals(SAS_Name, StringComparison.Ordinal) ||
-                    Obj.name.Equals(RCS_Name, StringComparison.Ordinal)
+                    Obj.name.Equals(RCS_Name, StringComparison.Ordinal) ||
+                    Obj.name.Equals("comm_on_1", StringComparison.Ordinal) ||
+                    Obj.name.Equals("comm_on_2", StringComparison.Ordinal) ||
+                    Obj.name.Equals("comm_on_3", StringComparison.Ordinal)
                     )
                 {
                     Obj.gameObject.SetActive(false);
@@ -156,8 +181,6 @@ namespace Omicron
             speedpointerold = speedpointer;
 
             //Throttle
-            myVessel = FindObjectOfType<Vessel>();
-            
             Throttle_Dial_L = part.transform.FindRecursive(Throttle_Dial_Left_Name);
             Throttle_Dial_R = part.transform.FindRecursive(Throttle_Dial_Right_Name);
             Throttle_L = part.transform.FindRecursive(Throttle_Left_Name);
@@ -216,7 +239,7 @@ namespace Omicron
             }
 
             //Throttle
-            Throttle = myVessel.ctrlState.mainThrottle;
+            Throttle = vessel.ctrlState.mainThrottle;
             Quaternion jogThrottle = Quaternion.Euler(0, 0, (Throttle * 270));
             Throttle_Dial_L.localRotation = jogThrottle;
             Throttle_Dial_R.localRotation = jogThrottle;
@@ -226,13 +249,13 @@ namespace Omicron
             Throttle_R.localPosition = new Vector3(0, 0, (float) ((Throttle * 0.008) + 0.029));
 
             //Speed Orbit or Surface
-            if (myVessel.atmDensity < 0.2 & myVessel.altitude > 25000)
+            if (vessel.atmDensity < 0.2 & vessel.altitude > 25000)
             {
-                Speed = (float)myVessel.obt_speed;
+                Speed = (float)vessel.obt_speed;
             }
             else
             {
-                Speed = (float)myVessel.srfSpeed;
+                Speed = (float)vessel.srfSpeed;
             };
 
             //Check speed unity;
@@ -323,13 +346,13 @@ namespace Omicron
             Speed_Dial_1000_R.localPosition = new Vector3(0, (float)((0.02 * (Speed % 10000) / 10000) + 0.16), 0);
 
             //Altitude AGL or MSL
-            if (myVessel.altimeterDisplayState == AltimeterDisplayState.AGL)
+            if (vessel.altimeterDisplayState == AltimeterDisplayState.AGL)
             {
-                Altitude = (float) myVessel.radarAltitude;
+                Altitude = (float) vessel.radarAltitude;
             }
             else
             {
-                Altitude = (float) myVessel.altitude;
+                Altitude = (float) vessel.altitude;
             };
 
             //Check altitude unity;
@@ -429,12 +452,86 @@ namespace Omicron
             Alt_Dial_100_R.localPosition = new Vector3(0, (float)((0.02 * (Altitude % 1000) / 1000) + 0.16), 0);
             Alt_Dial_1000_R.localPosition = new Vector3(0, (float)((0.02 * (Altitude % 10000) / 10000) + 0.155), 0);
 
-            //Leverage pointers;
+            //Leverage pointers
             altpointerold = altpointer;
             speedpointerold = speedpointer;
 
-            print("SAS stat = " + SASstat + "  RCS stat = " + RCSstat);
+            //Comm Status
+            commStatus = vessel.connection.SignalStrength;
+            signalStrength = 0;
 
+            if (commStatus > 0)
+            {
+                signalStrength ++;
+            }
+            if (commStatus > 0.35)
+            {
+                signalStrength ++;
+            }
+            if (commStatus > 0.75)
+            {
+                signalStrength++;
+            }
+
+            switch (signalStrength)
+            {
+                case 1:
+                    commOnOff = part.transform.FindRecursive("comm_off_1");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_off_2");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_off_3");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_1");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_2");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_on_3");
+                    commOnOff.gameObject.SetActive(false);
+                    break;
+                case 2:
+                    commOnOff = part.transform.FindRecursive("comm_off_1");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_off_2");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_off_3");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_1");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_2");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_3");
+                    commOnOff.gameObject.SetActive(false);
+                    break;
+                case 3:
+                    commOnOff = part.transform.FindRecursive("comm_off_1");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_off_2");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_off_3");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_on_1");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_2");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_3");
+                    commOnOff.gameObject.SetActive(true);
+                    break;
+                default:
+                    commOnOff = part.transform.FindRecursive("comm_off_1");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_off_2");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_off_3");
+                    commOnOff.gameObject.SetActive(true);
+                    commOnOff = part.transform.FindRecursive("comm_on_1");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_on_2");
+                    commOnOff.gameObject.SetActive(false);
+                    commOnOff = part.transform.FindRecursive("comm_on_3");
+                    commOnOff.gameObject.SetActive(false);
+                    break;
+            }
         }
     }
 }
