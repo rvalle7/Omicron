@@ -10,3 +10,6 @@ C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\Output\Omicron.dll
 C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.csprojAssemblyReference.cache
 C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.csproj.CoreCompileInputs.cache
 C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.dll
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\Output\UnityEngine.TextRenderingModule.dll
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\Output\UnityEngine.CoreModule.dll
+C:\Users\mac pro w\Dropbox\Omicron\Code\Omicron\obj\Release\Omicron.csproj.CopyComplete
