@@ -7,22 +7,13 @@ namespace Omicron
     {
         public static Transform FindRecursive(this Transform transform, String name)
         {
-            if (transform.name == name) 
-            { 
-                return transform; 
-            }
+            if (transform.name == name) { return transform; }
             Transform tr = transform.Find(name);
-            if (tr != null) 
-            { 
-                return tr; 
-            }
+            if (tr != null) { return tr; }
             foreach (Transform child in transform)
             {
                 tr = child.FindRecursive(name);
-                if (tr != null) 
-                { 
-                    return tr; 
-                }
+                if (tr != null) { return tr; }
             }
             return null;
         }

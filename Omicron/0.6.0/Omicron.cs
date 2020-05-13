@@ -34,8 +34,6 @@ namespace Omicron
             var delta = Quaternion.Inverse(attitudeGymbal);
             delta.z = -delta.z;
             myNavballTrans.localRotation = delta;
-
-            //print("Navball Rotation = " + myNavballTrans.eulerAngles + ", Local Rotation = " + myNavballTrans.localEulerAngles + "Delta = " + delta);
         }
     }
 

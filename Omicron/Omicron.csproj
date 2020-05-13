@@ -66,8 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="0.6.0\Omicron.cs" />
-    <Compile Include="ModuleMirror.cs" />
-    <Compile Include="ModuleDisplay.cs" />
+    <None Include="0.6.1\Utils.cs" />
+    <None Include="0.6.1\ModuleMirror.cs" />
+    <None Include="0.6.1\ModuleDisplay.cs" />
+    <None Include="0.6.1\ModuleOmicron.cs" />
+    <Compile Include="ModuleOmicronVtol.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ModuleOmicron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,7 +9,7 @@ namespace Omicron
     [KSPModule("ModuleMirror")]
     public class ModuleMirror : PartModule
     {
-
+        #region Var
         public Transform leftObject;
         public Transform rightObject;
         public string right = "right";
@@ -21,8 +21,9 @@ namespace Omicron
         public string flightSide;
 
         public ModuleMirror clone;
+        #endregion
 
-
+        #region OnStart
         public override void OnStart(PartModule.StartState state)
         {
             base.OnStart(state);
@@ -31,13 +32,11 @@ namespace Omicron
             {
                 if (tr.name.Equals("Left", StringComparison.Ordinal))
                 {
-                    //print("Found left"); 
                     leftObject = tr;
                 }
 
                 if (tr.name.Equals("Right", StringComparison.Ordinal))
                 {
-                    //print("Found right");
                     rightObject = tr;
                 }
             }
@@ -45,37 +44,29 @@ namespace Omicron
             if (HighLogic.LoadedSceneIsFlight)
             {
                 SetSide(flightSide);
-                print("Loaded scene is flight");
             }
-
-            print("Loaded scene is editor");
-            print(flightSide);
 
             FindClone();
             if (clone != null)
             {
-                print("Part is clone");
-                //FindClone(); //make sure we have the clone. No harm in checking again
-                SetSide(clone.cloneSide);
+                 SetSide(clone.cloneSide);
             }
 
-            if (flightSide == "") //check to see if we have a value in persistence
+            if (flightSide == "")
             {
-                print("No flightSide value in persistence. Sertting default");
-                //print(this.part.isClone);
-                LeftSide();
+                 LeftSide();
             }
-            else //flightSide has a value, so set it.
+            else
             {
-                print("Setting value from persistence");
+                //print("Setting value from persistence");
                 SetSide(flightSide);
             }
+        }
+        #endregion
 
-
-        }//end OnStart
-
+        #region Events
         [KSPEvent(guiName = "Left", guiActive = false, guiActiveEditor = true)]
-        public void LeftSide() //sets this side to left and clone to right
+        public void LeftSide()
         {
             FindClone();
             SetSide(left);
@@ -96,8 +87,10 @@ namespace Omicron
                 clone.SetSide(left);
             }
         }
+        #endregion
 
-        public void SetSide(string side) //accepts the string value
+        #region Class SetSide
+        public void SetSide(string side)
         {
             if (side == left)
             {
@@ -119,17 +112,19 @@ namespace Omicron
             }
 
         }
+        #endregion
 
+        #region Class FindClone
         public void FindClone()
         {
-            foreach (Part potentialMaster in this.part.symmetryCounterparts) //search for parts that might be my symmetry counterpart
+            foreach (Part potentialMaster in this.part.symmetryCounterparts)
             {
-                if (potentialMaster != null) //or we'll get a null-ref
+                if (potentialMaster != null)
                 {
                     clone = potentialMaster.Modules.OfType<ModuleMirror>().FirstOrDefault();
-                    //print("found my clone");
                 }
             }
         }
-    }//end class
-}//end namespace
+        #endregion
+    }
+}
