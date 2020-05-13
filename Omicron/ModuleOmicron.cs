@@ -2,7 +2,6 @@
 using UnityEngine;
 using KSP.UI.Screens.Flight;
 using TMPro;
-using UnityEngine.UI;
 
 namespace Omicron
 {
@@ -13,17 +12,17 @@ namespace Omicron
         //NavBall
         private NavBall stockNavball;
         private Transform myNavballTrans;
-        private string NavBallName = "navball_node";
+        readonly private string NavBallName = "navball_node";
 
         //SAS
         private bool SASstat;
         private Transform SASglass;
-        private string SAS_Name = "SAS_glass";
+        readonly private string SAS_Name = "SAS_glass";
 
         //RCS
         private bool RCSstat;
         private Transform RCSglass;
-        private string RCS_Name = "RCS_glass";
+        readonly private string RCS_Name = "RCS_glass";
 
         //Throttle
         private Transform Throttle_Dial_L;
@@ -31,21 +30,21 @@ namespace Omicron
         private Transform Throttle_L;
         private Transform Throttle_R;
         private float Throttle;
-        private string Throttle_Dial_Left_Name = "dial_throttle_left";
-        private string Throttle_Left_Name = "throttle_left";
-        private string Throttle_Dial_Right_Name = "dial_throttle_right";
-        private string Throttle_Right_Name = "throttle_right";
+        readonly private string Throttle_Dial_Left_Name = "dial_throttle_left";
+        readonly private string Throttle_Left_Name = "throttle_left";
+        readonly private string Throttle_Dial_Right_Name = "dial_throttle_right";
+        readonly private string Throttle_Right_Name = "throttle_right";
 
         //Engine Status
         private Transform EngLedTrans_left;
-        private Transform EngLedrans_right;
-        private string EngLedName_left = "eng_status_left";
-        private string EngLedName_right = "eng_status_right";
+        private Transform EngLedTrans_right;
+        readonly private string EngLedName_left = "eng_status_left";
+        readonly private string EngLedName_right = "eng_status_right";
         private bool EnginePointer = false;
-        private float ScreenTime = 3.0f;
+        private float ScreenTime = 4.0f;
 
         private TextMeshPro LCDTextMeshEng = null;
-        private string ScreenNameEng = "tmp_engine_status";
+        readonly private string ScreenNameEng = "tmp_engine_status";
         private Mesh MEng;
         private RectTransform TEng;
         private string Eng_info = "offline";
@@ -58,28 +57,28 @@ namespace Omicron
         private Transform Speed_Dial_100_R;
         private Transform Speed_Dial_1000_R;
         private double Speed;
-        private string Speed_Dial_10_Left_Name = "Dial_10_speed_left";
-        private string Speed_Dial_100_Left_Name = "Dial_100_speed_left";
-        private string Speed_Dial_1000_Left_Name = "Dial_1000_speed_left";
-        private string Speed_Dial_10_Right_Name = "Dial_10_speed_right";
-        private string Speed_Dial_100_Right_Name = "Dial_100_speed_right";
-        private string Speed_Dial_1000_Right_Name = "Dial_1000_speed_right";
+        readonly private string Speed_Dial_10_Left_Name = "Dial_10_speed_left";
+        readonly private string Speed_Dial_100_Left_Name = "Dial_100_speed_left";
+        readonly private string Speed_Dial_1000_Left_Name = "Dial_1000_speed_left";
+        readonly private string Speed_Dial_10_Right_Name = "Dial_10_speed_right";
+        readonly private string Speed_Dial_100_Right_Name = "Dial_100_speed_right";
+        readonly private string Speed_Dial_1000_Right_Name = "Dial_1000_speed_right";
 
         private TextMeshPro LCDTextMeshS = null;
         private TextMeshPro LCDTextMeshSR = null;
-        private string ScreenNameS = "tmp_speed_left";
-        private string ScreenNameSR = "tmp_speed_right";
+        readonly private string ScreenNameS = "tmp_speed_left";
+        readonly private string ScreenNameSR = "tmp_speed_right";
         private Mesh MS;
         private Mesh MSR;
         private RectTransform TS;
         private RectTransform TSR;
-        private string SpdUnity = "m/s";
+        readonly private string SpdUnity = "m/s";
 
         //Unit Display for Speed
         private TextMeshPro LCDTextMeshSp = null;
         private TextMeshPro LCDTextMeshSpR = null;
-        private string ScreenNameSp = "tmp_speedunit_left";
-        private string ScreenNameSpR = "tmp_speedunit_right";
+        readonly private string ScreenNameSp = "tmp_speedunit_left";
+        readonly private string ScreenNameSpR = "tmp_speedunit_right";
         private Mesh MSp;
         private Mesh MSpR;
         private RectTransform TSp;
@@ -89,8 +88,8 @@ namespace Omicron
         private double Vspeed;
         private TextMeshPro LCDTextMeshVS = null;
         private TextMeshPro LCDTextMeshVSR = null;
-        private string ScreenNameVS = "tmp_vert_speed_left";
-        private string ScreenNameVSR = "tmp_vert_speed_right";
+        readonly private string ScreenNameVS = "tmp_vert_speed_left";
+        readonly private string ScreenNameVSR = "tmp_vert_speed_right";
         private Mesh MVS;
         private Mesh MVSR;
         private RectTransform TVS;
@@ -100,8 +99,8 @@ namespace Omicron
         private double Hspeed;
         private TextMeshPro LCDTextMeshHS = null;
         private TextMeshPro LCDTextMeshHSR = null;
-        private string ScreenNameHS = "tmp_hor_speed_left";
-        private string ScreenNameHSR = "tmp_hor_speed_right";
+        readonly private string ScreenNameHS = "tmp_hor_speed_left";
+        readonly private string ScreenNameHSR = "tmp_hor_speed_right";
         private Mesh MHS;
         private Mesh MHSR;
         private RectTransform THS;
@@ -115,17 +114,17 @@ namespace Omicron
         private Transform Alt_Dial_100_R;
         private Transform Alt_Dial_1000_R;
         private double Altitude;
-        private string Alt_Dial_10_Left_Name = "Dial_10_altitude_left";
-        private string Alt_Dial_100_Left_Name = "Dial_100_altitude_left";
-        private string Alt_Dial_1000_Left_Name = "Dial_1000_altitude_left";
-        private string Alt_Dial_10_Right_Name = "Dial_10_altitude_right";
-        private string Alt_Dial_100_Right_Name = "Dial_100_altitude_right";
-        private string Alt_Dial_1000_Right_Name = "Dial_1000_altitude_right";
+        readonly private string Alt_Dial_10_Left_Name = "Dial_10_altitude_left";
+        readonly private string Alt_Dial_100_Left_Name = "Dial_100_altitude_left";
+        readonly private string Alt_Dial_1000_Left_Name = "Dial_1000_altitude_left";
+        readonly private string Alt_Dial_10_Right_Name = "Dial_10_altitude_right";
+        readonly private string Alt_Dial_100_Right_Name = "Dial_100_altitude_right";
+        readonly private string Alt_Dial_1000_Right_Name = "Dial_1000_altitude_right";
 
         private TextMeshPro LCDTextMesh = null;
         private TextMeshPro LCDTextMeshR = null;
-        private string ScreenName = "tmp_altitude_left";
-        private string ScreenNameR = "tmp_altitude_right";
+        readonly private string ScreenName = "tmp_altitude_left";
+        readonly private string ScreenNameR = "tmp_altitude_right";
         private Mesh M;
         private Mesh MR;
         private RectTransform T;
@@ -137,8 +136,8 @@ namespace Omicron
         //Unit Display for Altitude
         private TextMeshPro LCDTextMeshAU = null;
         private TextMeshPro LCDTextMeshAUR = null;
-        private string ScreenNameAU = "tmp_altunit_left";
-        private string ScreenNameAUR = "tmp_altunit_right";
+        readonly private string ScreenNameAU = "tmp_altunit_left";
+        readonly private string ScreenNameAUR = "tmp_altunit_right";
         private Mesh MAU;
         private Mesh MAUR;
         private RectTransform TAU;
@@ -149,8 +148,8 @@ namespace Omicron
         private double Periapsis;
         private TextMeshPro LCDTextMeshPe = null;
         private TextMeshPro LCDTextMeshPeR = null;
-        private string ScreenNamePe = "tmp_pe_left";
-        private string ScreenNamePeR = "tmp_pe_right";
+        readonly private string ScreenNamePe = "tmp_pe_left";
+        readonly private string ScreenNamePeR = "tmp_pe_right";
         private Mesh MPe;
         private Mesh MPeR;
         private RectTransform TPe;
@@ -160,8 +159,8 @@ namespace Omicron
         private double Apoapsis;
         private TextMeshPro LCDTextMeshAp = null;
         private TextMeshPro LCDTextMeshApR = null;
-        private string ScreenNameAp = "tmp_ap_left";
-        private string ScreenNameApR = "tmp_ap_right";
+        readonly private string ScreenNameAp = "tmp_ap_left";
+        readonly private string ScreenNameApR = "tmp_ap_right";
         private Mesh MAp;
         private Mesh MApR;
         private RectTransform TAp;
@@ -171,7 +170,7 @@ namespace Omicron
         private Transform VtolTrans;
         private double VtolAngle;
         private TextMeshPro LCDTextMeshVtol = null;
-        private string ScreenNameVtol = "tmp_vtol_angle";
+        readonly private string ScreenNameVtol = "tmp_vtol_angle";
         private Mesh MVtol;
         private RectTransform TVtol;
 
@@ -257,46 +256,16 @@ namespace Omicron
 
         #region Actions
         [KSPAction("Toggle Engine")]
-        public void doToggleEngine(KSPActionParam Par)
+        public void DoToggleEngine(KSPActionParam Par)
         {
-            ToggleEngine();
-        }
-
-        [KSPAction("Engine On")]
-        public void doEngineOn(KSPActionParam Par)
-        {
-            EngineStatus = "Off";
-            ToggleEngine();
-        }
-
-        [KSPAction("Engine Off")]
-        public void doEngineOff(KSPActionParam Par)
-        {
-            EngineStatus = "On";
             ToggleEngine();
         }
 
         [KSPAction("Switch Engine Mode")]
-        public void doSwitchEngineMode(KSPActionParam Par)
+        public void DoSwitchEngineMode(KSPActionParam Par)
         {
             SwitchEngineMode();
         }
-
-        [KSPAction("Engine Air breathing Mode")]
-        public void doEngineAir(KSPActionParam Par)
-        {
-            EngineMode = "Rocket";
-            SwitchEngineMode();
-        }
-
-        [KSPAction("Engine Rocket Mode")]
-        public void doEngineRocket(KSPActionParam Par)
-        {
-            EngineMode = "Air Breathing";
-            SwitchEngineMode();
-        }
-
-
         #endregion
 
         #region OnCopy Check TextMesh Copy
@@ -708,13 +677,13 @@ namespace Omicron
             Transform screenTransformEng = part.FindModelTransform(ScreenNameEng);
             LCDScreenEng.transform.parent = screenTransformEng;
             LCDScreenEng.transform.localRotation = screenTransformEng.localRotation;
-            LCDScreenEng.transform.localRotation = Quaternion.Euler(0, 0, 90);
+            LCDScreenEng.transform.localRotation = Quaternion.Euler(90, 180, 0);
             LCDTextMeshEng = LCDScreenEng.AddComponent<TextMeshPro>();
             MEng = screenTransformEng.GetComponent<MeshFilter>().mesh;
             TEng = LCDTextMeshEng.gameObject.GetComponent<RectTransform>();
-            TEng.sizeDelta = new Vector2(MEng.bounds.size.y * 5f, MEng.bounds.size.x * 5f);
-            LCDScreenEng.transform.localPosition = new Vector3(0, 0, (MEng.bounds.size.z / 2) + 0.01f);
-            LCDTextMeshEng.fontSize = 0.25f;
+            TEng.sizeDelta = new Vector2(MEng.bounds.size.x * 1.25f, MEng.bounds.size.z * 1.25f);
+            LCDScreenEng.transform.localPosition = new Vector3(0, 0, 0);
+            LCDTextMeshEng.fontSize = 0.18f;
             LCDTextMeshEng.enableAutoSizing = autoFont;
             LCDTextMeshEng.color = new Color32(255, 0, 0, 255);
             LCDTextMeshEng.font = loadedFonts[1];
@@ -770,6 +739,10 @@ namespace Omicron
             Throttle_Dial_R = part.transform.FindRecursive(Throttle_Dial_Right_Name);
             Throttle_L = part.transform.FindRecursive(Throttle_Left_Name);
             Throttle_R = part.transform.FindRecursive(Throttle_Right_Name);
+
+            //Engine Status
+            EngLedTrans_left = part.transform.FindRecursive(EngLedName_left);
+            EngLedTrans_right = part.transform.FindRecursive(EngLedName_right);
 
             //Speed Dials
             Speed_Dial_10_L = part.transform.FindRecursive(Speed_Dial_10_Left_Name);
@@ -937,9 +910,10 @@ namespace Omicron
 
             #region Altitude
             //Altitude AGL or MSL
-            if (vessel.altimeterDisplayState == AltimeterDisplayState.AGL)
+            if (vessel.SituationString == "LANDED" || vessel.SituationString == "SPLASHED" || vessel.SituationString == "PRELAUNCH" || vessel.SituationString == "FLYING")
+            //if (vessel.altimeterDisplayState == AltimeterDisplayState.AGL)
             {
-                Altitude = vessel.radarAltitude;
+                    Altitude = vessel.radarAltitude;
             }
             else
             {
@@ -1167,12 +1141,16 @@ namespace Omicron
                 else
                 {
                     Eng_info = "engine on";
+                    EngLedTrans_left.gameObject.SetActive(true);
+                    EngLedTrans_right.gameObject.SetActive(true);
                 }
             }
             else if (!EnginePointer)
             {
-                ScreenTime = 3.0f;
+                ScreenTime = 5.0f;
                 Eng_info = "engine off";
+                EngLedTrans_left.gameObject.SetActive(false);
+                EngLedTrans_right.gameObject.SetActive(false);
                 EnginePointer = true;
             }
             else
@@ -1181,7 +1159,7 @@ namespace Omicron
                 if (ScreenTime < 0)
                 {
                     Eng_info = "";
-                    ScreenTime = 3.0f;
+                    ScreenTime = 5.0f;
                 }
             }
             LCDTextMeshEng.text = Eng_info;
